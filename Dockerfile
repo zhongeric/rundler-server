@@ -7,17 +7,20 @@ WORKDIR /app
 COPY package.json yarn.lock* ./
 
 # Install dependencies
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
-# Copy source code
+# Copy source files
 COPY . .
 
-# Expose Express server port
+# Build TypeScript
+RUN yarn build
+
+# Expose port
 EXPOSE 3000
 
 # Set environment variables with defaults
 # Note: These will be overridden by docker-compose
 ENV RUNDLER_URL=http://localhost:8545
 
-# Start the Express server
+# Start the application
 CMD ["yarn", "start"]
