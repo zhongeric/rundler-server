@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # Express server service
+  express-server:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - RUNDLER_URL=http://rundler:8545
+    env_file:
+      - .env
+    depends_on:
+      - rundler
+
+  # Rundler service
+  rundler:
+    image: alchemy-platform/rundler:latest
+    command: >
+      node rpc
+      --entry-points 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789
+      --rpc-url ${ETH_RPC_URL:-http://localhost:8545}
+      --private-key ${BUNDLER_PRIVATE_KEY:-0x0000000000000000000000000000000000000000000000000000000000000001}
+      --pool-size 1
+      --max-verification 100
+      --chain-id ${CHAIN_ID:-11155111}
+    ports:
+      - "8545:8545"
+    env_file:
+      - .env
+    volumes:
+      - rundler_data:/var/lib/rundler
+
+volumes:
+  rundler_data:
