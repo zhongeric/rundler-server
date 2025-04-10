@@ -61,7 +61,9 @@ Then edit the `.env` file with your specific values:
 docker-compose up
 ```
 
-This will start both the Express server and Rundler. The Express server will be accessible at http://localhost:3000, and Rundler at http://localhost:8545.
+This will start both the Express server and Rundler components. 
+- The Express server will be accessible at http://localhost:3001 
+- The Rundler RPC service will be accessible at http://localhost:8545 and http://localhost:8080 (metrics)
 
 ### Option 2: Running Components Separately
 
