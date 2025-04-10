@@ -20,11 +20,13 @@ services:
   express-server:
     build: .
     ports:
-      - "${EXPRESS_PORT:-3001}:3000"
+      - "3001:3000"
     environment:
       - RUNDLER_URL=http://rundler:3000
       - ETH_RPC_URL=${ETH_RPC_URL}
       - CHAIN_ID=${CHAIN_ID}
+      - PAYMASTER_VERIFYING_SIGNER_PRIVATE_KEY=${PAYMASTER_VERIFYING_SIGNER_PRIVATE_KEY}
+      - PAYMASTER_ADDRESS=${PAYMASTER_ADDRESS}
     env_file:
       - .env
     depends_on:
